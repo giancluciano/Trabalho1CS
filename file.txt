@@ -1,4 +1,6 @@
 texto do arquivo
 outra linha
-texto do arquivo
-outra linha
+
+3 linha
+mais uma linha
+mais uma linha

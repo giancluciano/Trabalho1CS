@@ -20,40 +20,44 @@ import java.util.List;
  */
 public class CrudManager {
     private Path file = Paths.get("file.txt");
+    private List<String> tabela;
     
     //New records are always inserted at the end. Returns line number
-    public int insertRecord(List<String> lines) throws IOException {
-        Files.write(file, lines, Charset.defaultCharset().forName("UTF-8"), StandardOpenOption.APPEND);
-        return 0;
+    public int insertRecord(String line) throws IOException {
+        this.tabela.add(line);
+        return tabela.size() - 1;
     }
     
-    public List<String> getRecord(int id) throws IOException{
-        List<String> content = Files.readAllLines(file);
-        System.out.println(content);
-        return content;
+    public String getRecord(int id) throws IOException{
+        return tabela.get(id);
     }
     
     public void updateRecord(String newValue, int id) {
+        tabela.add(id, newValue);
         
     }
     
     public void deleteRecord(int id) {
+        tabela.remove(id);
     }
     
     
     
-    public void connect(String fileName) {
-    
+    public void connect(String fileName) throws IOException {
+        List<String> content = Files.readAllLines(file);
+        this.tabela = content;
+        System.out.println(content);
     }
     
     public void disconnect() {
         
     }
     
-    private void save() {
+    public void save() throws IOException {
+        Files.write(file, tabela, Charset.defaultCharset().forName("UTF-8"), StandardOpenOption.WRITE);
     }
     
-    public String[] getAllRecords() {
-        return new String[0];
+    public List<String> getAllRecords() {
+        return tabela;
     }
 }

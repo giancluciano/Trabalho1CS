@@ -92,8 +92,8 @@ public class MyFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         pack();
@@ -144,8 +144,11 @@ public class MyFrame extends javax.swing.JFrame {
         
         CrudManager crud = new CrudManager();
         try {
-            List<String> lines = crud.getRecord(2);
-            crud.insertRecord(lines);
+            crud.connect("");
+            int id = crud.insertRecord("mais uma linha");
+            System.out.println(crud.getRecord(id));
+            crud.save();
+                    
         } catch (IOException ex) {
             Logger.getLogger(MyFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
