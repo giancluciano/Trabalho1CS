@@ -5,6 +5,11 @@
  */
 package local.pack;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author vinicius
@@ -136,6 +141,14 @@ public class MyFrame extends javax.swing.JFrame {
                 new MyFrame().setVisible(true);
             }
         });
+        
+        CrudManager crud = new CrudManager();
+        try {
+            List<String> lines = crud.getRecord(2);
+            crud.insertRecord(lines);
+        } catch (IOException ex) {
+            Logger.getLogger(MyFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
