@@ -19,6 +19,9 @@ public class MyFrame extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame
      */
+    
+    private CrudManager crudManager = new CrudManager();
+    
     public MyFrame() {
         this.setTitle("To-do List");
         initComponents();
@@ -34,24 +37,34 @@ public class MyFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        minhaLista = new javax.swing.JList<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        menuConectar = new javax.swing.JMenuItem();
         menuInserirItem = new javax.swing.JMenuItem();
         menuLerLista = new javax.swing.JMenuItem();
         menuEditarItem = new javax.swing.JMenuItem();
         menuApagarItem = new javax.swing.JMenuItem();
+        Desconectar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        minhaLista.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(minhaLista);
 
         jMenu1.setText("Ações");
+
+        menuConectar.setText("Conectar");
+        menuConectar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuConectarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuConectar);
 
         menuInserirItem.setText("Inserir item");
         menuInserirItem.addActionListener(new java.awt.event.ActionListener() {
@@ -75,6 +88,9 @@ public class MyFrame extends javax.swing.JFrame {
         menuApagarItem.setText("Apagar Item");
         jMenu1.add(menuApagarItem);
 
+        Desconectar.setText("Desconectar");
+        jMenu1.add(Desconectar);
+
         jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
@@ -83,17 +99,17 @@ public class MyFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -104,8 +120,13 @@ public class MyFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_menuInserirItemActionPerformed
 
     private void menuLerListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLerListaActionPerformed
-        // TODO add your handling code here:
+        List<String> records = crudManager.getAllRecords();
+        minhaLista.setListData(records.toArray(new String[0]));
     }//GEN-LAST:event_menuLerListaActionPerformed
+
+    private void menuConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConectarActionPerformed
+        crudManager.connect("file.txt");
+    }//GEN-LAST:event_menuConectarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -142,26 +163,28 @@ public class MyFrame extends javax.swing.JFrame {
             }
         });
         
-        CrudManager crud = new CrudManager();
-        try {
-            crud.connect("");
-            int id = crud.insertRecord("mais uma linha");
-            System.out.println(crud.getRecord(id));
-            crud.save();
-                    
-        } catch (IOException ex) {
-            Logger.getLogger(MyFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        CrudManager crud = new CrudManager();
+//        try {
+//            crud.connect("");
+//            int id = crud.insertRecord("mais uma linha");
+//            System.out.println(crud.getRecord(id));
+//            crud.save();
+//                    
+//        } catch (IOException ex) {
+//            Logger.getLogger(MyFrame.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JMenuItem Desconectar;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem menuApagarItem;
+    private javax.swing.JMenuItem menuConectar;
     private javax.swing.JMenuItem menuEditarItem;
     private javax.swing.JMenuItem menuInserirItem;
     private javax.swing.JMenuItem menuLerLista;
+    private javax.swing.JList<String> minhaLista;
     // End of variables declaration//GEN-END:variables
 }

@@ -12,15 +12,18 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author vinicius
  */
 public class CrudManager {
-    private Path file = Paths.get("file.txt");
     private List<String> tabela;
+    Path path;
     
     //New records are always inserted at the end. Returns line number
     public int insertRecord(String line) throws IOException {
@@ -43,10 +46,22 @@ public class CrudManager {
     
     
     
-    public void connect(String fileName) throws IOException {
-        List<String> content = Files.readAllLines(file);
-        this.tabela = content;
-        System.out.println(content);
+    
+    //Checks if database exists, loads data into memory.
+    //If it doesn't exists returns empty database to write data.
+    public void connect(String fileName) {
+        File file = new File(fileName);
+        if (file.exists()) {
+            this.path = Paths.get(fileName);
+            try {
+                this.tabela = Files.readAllLines(this.path);
+            } catch (IOException ex) {
+                Logger.getLogger(CrudManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else {
+            this.tabela = new ArrayList<String>();
+        }
     }
     
     public void disconnect() {
@@ -54,10 +69,10 @@ public class CrudManager {
     }
     
     public void save() throws IOException {
-        Files.write(file, tabela, Charset.defaultCharset().forName("UTF-8"), StandardOpenOption.WRITE);
+        Files.write(path, tabela, Charset.defaultCharset().forName("UTF-8"), StandardOpenOption.WRITE);
     }
     
     public List<String> getAllRecords() {
-        return tabela;
+        return this.tabela;
     }
 }
