@@ -211,17 +211,6 @@ public class MyFrame extends javax.swing.JFrame {
                 new MyFrame().setVisible(true);
             }
         });
-        
-//        CrudManager crud = new CrudManager();
-//        try {
-//            crud.connect("");
-//            int id = crud.insertRecord("mais uma linha");
-//            System.out.println(crud.getRecord(id));
-//            crud.save();
-//                    
-//        } catch (IOException ex) {
-//            Logger.getLogger(MyFrame.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
