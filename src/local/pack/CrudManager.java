@@ -26,18 +26,19 @@ public class CrudManager {
     Path path;
     
     //New records are always inserted at the end. Returns line number
-    public int insertRecord(String line) throws IOException {
-        this.tabela.add(line);
+    public int insertRecord(String data) {
+        this.tabela.add(data);
+        this.save();
         return tabela.size() - 1;
     }
     
-    public String getRecord(int id) throws IOException{
+    //Record the record according to the index/PK supplied
+    public String getRecord(int id) {
         return tabela.get(id);
     }
     
     public void updateRecord(String newValue, int id) {
         tabela.add(id, newValue);
-        
     }
     
     public void deleteRecord(int id) {
@@ -68,8 +69,12 @@ public class CrudManager {
         
     }
     
-    public void save() throws IOException {
-        Files.write(path, tabela, Charset.defaultCharset().forName("UTF-8"), StandardOpenOption.WRITE);
+    public void save() {
+        try {
+            Files.write(path, tabela, Charset.defaultCharset().forName("UTF-8"), StandardOpenOption.WRITE);
+        } catch (IOException ex) {
+            Logger.getLogger(CrudManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public List<String> getAllRecords() {

@@ -5,10 +5,12 @@
  */
 package local.pack;
 
+import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -43,6 +45,7 @@ public class MyFrame extends javax.swing.JFrame {
         menuConectar = new javax.swing.JMenuItem();
         menuInserirItem = new javax.swing.JMenuItem();
         menuLerLista = new javax.swing.JMenuItem();
+        menuLerTerceiroItemDaLista = new javax.swing.JMenuItem();
         menuEditarItem = new javax.swing.JMenuItem();
         menuApagarItem = new javax.swing.JMenuItem();
         Desconectar = new javax.swing.JMenuItem();
@@ -82,6 +85,14 @@ public class MyFrame extends javax.swing.JFrame {
         });
         jMenu1.add(menuLerLista);
 
+        menuLerTerceiroItemDaLista.setText("Ler 3o Item da Lista");
+        menuLerTerceiroItemDaLista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuLerTerceiroItemDaListaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuLerTerceiroItemDaLista);
+
         menuEditarItem.setText("Editar item");
         jMenu1.add(menuEditarItem);
 
@@ -116,7 +127,7 @@ public class MyFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuInserirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuInserirItemActionPerformed
-        // TODO add your handling code here:
+        crudManager.insertRecord("Some test");
     }//GEN-LAST:event_menuInserirItemActionPerformed
 
     private void menuLerListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLerListaActionPerformed
@@ -127,6 +138,10 @@ public class MyFrame extends javax.swing.JFrame {
     private void menuConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConectarActionPerformed
         crudManager.connect("file.txt");
     }//GEN-LAST:event_menuConectarActionPerformed
+
+    private void menuLerTerceiroItemDaListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLerTerceiroItemDaListaActionPerformed
+        JOptionPane.showMessageDialog(null, 2);
+    }//GEN-LAST:event_menuLerTerceiroItemDaListaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -185,6 +200,7 @@ public class MyFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuEditarItem;
     private javax.swing.JMenuItem menuInserirItem;
     private javax.swing.JMenuItem menuLerLista;
+    private javax.swing.JMenuItem menuLerTerceiroItemDaLista;
     private javax.swing.JList<String> minhaLista;
     // End of variables declaration//GEN-END:variables
 }
