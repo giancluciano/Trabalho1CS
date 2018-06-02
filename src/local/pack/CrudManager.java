@@ -21,18 +21,31 @@ import java.util.logging.Logger;
  * @author vinicius
  */
 public class CrudManager {
+    
+    public class NotConnectedException extends Exception {
+        public NotConnectedException() {
+            super("Select a file before performing this operation");
+        }
+    }
+    
     private List<String> tabela;
     Path path;
     
     //New records are always inserted at the end. Returns line number
-    public int insertRecord(String data) {
+    public int insertRecord(String data) throws NotConnectedException {
+        if (tabela == null)
+            throw new NotConnectedException();
+        
         this.tabela.add(data);
         this.save();
         return tabela.size() - 1;
     }
     
     //Record the record according to the index/PK supplied
-    public String getRecord(int id) {
+    public String getRecord(int id) throws NotConnectedException {
+        if (tabela == null)
+            throw new NotConnectedException();
+        
         if (0 <= id && id < tabela.size())
             return tabela.get(id);
         else
@@ -40,7 +53,10 @@ public class CrudManager {
     }
     
     //Updates record according to index/PK supplied
-    public void updateRecord(String newValue, int id) {
+    public void updateRecord(String newValue, int id) throws NotConnectedException {
+        if (tabela == null)
+            throw new NotConnectedException();
+        
         if (0 <= id && id < tabela.size()) {
             tabela.set(id, newValue);
             this.save();
@@ -48,7 +64,10 @@ public class CrudManager {
     }
     
     //Set line to blank. Prevents other records from changing index/PK.
-    public void deleteRecord(int id) {
+    public void deleteRecord(int id) throws NotConnectedException {
+        if (tabela == null)
+            throw new NotConnectedException();
+        
         if (0 <= id && id < tabela.size()) {
             tabela.set(id, "");
             this.save();
@@ -59,8 +78,8 @@ public class CrudManager {
     //If it doesn't exists returns empty database to write data.
     public void connect(String fileName) {
         File file = new File(fileName);
+        this.path = Paths.get(fileName);
         if (file.exists()) {
-            this.path = Paths.get(fileName);
             try {
                 this.tabela = Files.readAllLines(this.path);
             } catch (IOException ex) {
@@ -73,7 +92,7 @@ public class CrudManager {
     }
     
     //Persist changes to disk
-    public void save() {
+    private void save() {
         try {
             Files.write(this.path, this.tabela, Charset.defaultCharset().forName("UTF-8"));
         } catch (IOException ex) {
@@ -82,7 +101,10 @@ public class CrudManager {
     }
     
     //Return all data
-    public List<String> getAllRecords() {
+    public List<String> getAllRecords() throws NotConnectedException {
+        if (tabela == null)
+            throw new NotConnectedException();
+        
         return this.tabela;
     }
 }

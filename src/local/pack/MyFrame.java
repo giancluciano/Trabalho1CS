@@ -132,13 +132,21 @@ public class MyFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuInserirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuInserirItemActionPerformed
-        crudManager.insertRecord("New record " + Instant.now());
+        try {
+            crudManager.insertRecord("New record " + Instant.now());
+        } catch (CrudManager.NotConnectedException ex) {
+        }
         menuLerListaActionPerformed(evt);
     }//GEN-LAST:event_menuInserirItemActionPerformed
 
     private void menuLerListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLerListaActionPerformed
-        List<String> records = crudManager.getAllRecords();
-        minhaLista.setListData(records.toArray(new String[0]));
+        List<String> records;
+        try {
+            records = crudManager.getAllRecords();
+            minhaLista.setListData(records.toArray(new String[0]));
+        } catch (CrudManager.NotConnectedException ex) {
+            JOptionPane.showMessageDialog(null, "Conecte antes de realizar essa operação");
+        }
     }//GEN-LAST:event_menuLerListaActionPerformed
 
     private void menuConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConectarActionPerformed
@@ -146,16 +154,26 @@ public class MyFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_menuConectarActionPerformed
 
     private void menuLerSegundoItemDaListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLerSegundoItemDaListaActionPerformed
-        JOptionPane.showMessageDialog(null, crudManager.getRecord(1));
+        try {
+            JOptionPane.showMessageDialog(null, crudManager.getRecord(1));
+        } catch (CrudManager.NotConnectedException ex) {
+            JOptionPane.showMessageDialog(null, "Conecte antes de realizar essa operação");
+        }
     }//GEN-LAST:event_menuLerSegundoItemDaListaActionPerformed
 
     private void menuEditarSegundoItemDaListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEditarSegundoItemDaListaActionPerformed
-        crudManager.updateRecord("Novo valor", 1);
+        try {
+            crudManager.updateRecord("Novo valor", 1);
+        } catch (CrudManager.NotConnectedException ex) {
+        }
         menuLerListaActionPerformed(evt);
     }//GEN-LAST:event_menuEditarSegundoItemDaListaActionPerformed
 
     private void menuApagarSegundoItemDaListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuApagarSegundoItemDaListaActionPerformed
-        crudManager.deleteRecord(1);
+        try {
+            crudManager.deleteRecord(1);
+        } catch (CrudManager.NotConnectedException ex) {
+        }
         menuLerListaActionPerformed(evt);
     }//GEN-LAST:event_menuApagarSegundoItemDaListaActionPerformed
 
