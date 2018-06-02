@@ -1,6 +1,6 @@
 texto do arquivo
 outra linha
-3 linha
+My new value _o/
 mais uma linha
 mais uma linha pra encerrar
 Some test

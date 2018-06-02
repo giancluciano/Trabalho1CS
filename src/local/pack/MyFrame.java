@@ -94,6 +94,11 @@ public class MyFrame extends javax.swing.JFrame {
         jMenu1.add(menuLerTerceiroItemDaLista);
 
         menuEditarItem.setText("Editar item");
+        menuEditarItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuEditarItemActionPerformed(evt);
+            }
+        });
         jMenu1.add(menuEditarItem);
 
         menuApagarItem.setText("Apagar Item");
@@ -140,8 +145,13 @@ public class MyFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_menuConectarActionPerformed
 
     private void menuLerTerceiroItemDaListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLerTerceiroItemDaListaActionPerformed
-        JOptionPane.showMessageDialog(null, 2);
+        JOptionPane.showMessageDialog(null, crudManager.getRecord(2));
     }//GEN-LAST:event_menuLerTerceiroItemDaListaActionPerformed
+
+    private void menuEditarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEditarItemActionPerformed
+        crudManager.updateRecord("My new value _o/", 2);
+        menuLerListaActionPerformed(evt);
+    }//GEN-LAST:event_menuEditarItemActionPerformed
 
     /**
      * @param args the command line arguments

@@ -37,8 +37,12 @@ public class CrudManager {
         return tabela.get(id);
     }
     
+    //Updates record according to index/PK supplied
     public void updateRecord(String newValue, int id) {
-        tabela.add(id, newValue);
+        if (0 <= id && id < tabela.size()) {
+            tabela.set(id, newValue);
+            this.save();
+        }
     }
     
     public void deleteRecord(int id) {
