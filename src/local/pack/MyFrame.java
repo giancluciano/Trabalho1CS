@@ -7,6 +7,7 @@ package local.pack;
 
 import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
 import java.io.IOException;
+import java.time.Instant;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,20 +44,15 @@ public class MyFrame extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         menuConectar = new javax.swing.JMenuItem();
-        menuInserirItem = new javax.swing.JMenuItem();
         menuLerLista = new javax.swing.JMenuItem();
-        menuLerTerceiroItemDaLista = new javax.swing.JMenuItem();
-        menuEditarItem = new javax.swing.JMenuItem();
-        menuApagarItem = new javax.swing.JMenuItem();
-        Desconectar = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        menuInserirItem = new javax.swing.JMenuItem();
+        menuLerSegundoItemDaLista = new javax.swing.JMenuItem();
+        menuEditarSegundoItemDaLista = new javax.swing.JMenuItem();
+        menuApagarSegundoItemDaLista = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        minhaLista.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(minhaLista);
 
         jMenu1.setText("Ações");
@@ -69,14 +65,6 @@ public class MyFrame extends javax.swing.JFrame {
         });
         jMenu1.add(menuConectar);
 
-        menuInserirItem.setText("Inserir item");
-        menuInserirItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuInserirItemActionPerformed(evt);
-            }
-        });
-        jMenu1.add(menuInserirItem);
-
         menuLerLista.setText("Ler Lista");
         menuLerLista.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,28 +72,40 @@ public class MyFrame extends javax.swing.JFrame {
             }
         });
         jMenu1.add(menuLerLista);
+        jMenu1.add(jSeparator1);
 
-        menuLerTerceiroItemDaLista.setText("Ler 3o Item da Lista");
-        menuLerTerceiroItemDaLista.addActionListener(new java.awt.event.ActionListener() {
+        menuInserirItem.setText("Inserir item");
+        menuInserirItem.setActionCommand("Criar item");
+        menuInserirItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuLerTerceiroItemDaListaActionPerformed(evt);
+                menuInserirItemActionPerformed(evt);
             }
         });
-        jMenu1.add(menuLerTerceiroItemDaLista);
+        jMenu1.add(menuInserirItem);
 
-        menuEditarItem.setText("Editar item");
-        menuEditarItem.addActionListener(new java.awt.event.ActionListener() {
+        menuLerSegundoItemDaLista.setText("Ler 2o Item da Lista");
+        menuLerSegundoItemDaLista.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuEditarItemActionPerformed(evt);
+                menuLerSegundoItemDaListaActionPerformed(evt);
             }
         });
-        jMenu1.add(menuEditarItem);
+        jMenu1.add(menuLerSegundoItemDaLista);
 
-        menuApagarItem.setText("Apagar Item");
-        jMenu1.add(menuApagarItem);
+        menuEditarSegundoItemDaLista.setText("Editar 2o item da Lista");
+        menuEditarSegundoItemDaLista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuEditarSegundoItemDaListaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuEditarSegundoItemDaLista);
 
-        Desconectar.setText("Desconectar");
-        jMenu1.add(Desconectar);
+        menuApagarSegundoItemDaLista.setText("Apagar 2o Item da Lista");
+        menuApagarSegundoItemDaLista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuApagarSegundoItemDaListaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuApagarSegundoItemDaLista);
 
         jMenuBar1.add(jMenu1);
 
@@ -132,7 +132,8 @@ public class MyFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuInserirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuInserirItemActionPerformed
-        crudManager.insertRecord("Some test");
+        crudManager.insertRecord("New record " + Instant.now());
+        menuLerListaActionPerformed(evt);
     }//GEN-LAST:event_menuInserirItemActionPerformed
 
     private void menuLerListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLerListaActionPerformed
@@ -144,14 +145,19 @@ public class MyFrame extends javax.swing.JFrame {
         crudManager.connect("file.txt");
     }//GEN-LAST:event_menuConectarActionPerformed
 
-    private void menuLerTerceiroItemDaListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLerTerceiroItemDaListaActionPerformed
-        JOptionPane.showMessageDialog(null, crudManager.getRecord(2));
-    }//GEN-LAST:event_menuLerTerceiroItemDaListaActionPerformed
+    private void menuLerSegundoItemDaListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLerSegundoItemDaListaActionPerformed
+        JOptionPane.showMessageDialog(null, crudManager.getRecord(1));
+    }//GEN-LAST:event_menuLerSegundoItemDaListaActionPerformed
 
-    private void menuEditarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEditarItemActionPerformed
-        crudManager.updateRecord("My new value _o/", 2);
+    private void menuEditarSegundoItemDaListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEditarSegundoItemDaListaActionPerformed
+        crudManager.updateRecord("Novo valor", 1);
         menuLerListaActionPerformed(evt);
-    }//GEN-LAST:event_menuEditarItemActionPerformed
+    }//GEN-LAST:event_menuEditarSegundoItemDaListaActionPerformed
+
+    private void menuApagarSegundoItemDaListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuApagarSegundoItemDaListaActionPerformed
+        crudManager.deleteRecord(1);
+        menuLerListaActionPerformed(evt);
+    }//GEN-LAST:event_menuApagarSegundoItemDaListaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -201,16 +207,16 @@ public class MyFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem Desconectar;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JMenuItem menuApagarItem;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JMenuItem menuApagarSegundoItemDaLista;
     private javax.swing.JMenuItem menuConectar;
-    private javax.swing.JMenuItem menuEditarItem;
+    private javax.swing.JMenuItem menuEditarSegundoItemDaLista;
     private javax.swing.JMenuItem menuInserirItem;
     private javax.swing.JMenuItem menuLerLista;
-    private javax.swing.JMenuItem menuLerTerceiroItemDaLista;
+    private javax.swing.JMenuItem menuLerSegundoItemDaLista;
     private javax.swing.JList<String> minhaLista;
     // End of variables declaration//GEN-END:variables
 }

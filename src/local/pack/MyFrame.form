@@ -17,14 +17,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuConectarActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuInserirItem">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Inserir item"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuInserirItemActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuLerLista">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ler Lista"/>
@@ -33,31 +25,40 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuLerListaActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuLerTerceiroItemDaLista">
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuInserirItem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Ler 3o Item da Lista"/>
+                <Property name="text" type="java.lang.String" value="Inserir item"/>
+                <Property name="actionCommand" type="java.lang.String" value="Criar item"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuLerTerceiroItemDaListaActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuInserirItemActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuEditarItem">
+            <MenuItem class="javax.swing.JMenuItem" name="menuLerSegundoItemDaLista">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Editar item"/>
+                <Property name="text" type="java.lang.String" value="Ler 2o Item da Lista"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuEditarItemActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuLerSegundoItemDaListaActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuApagarItem">
+            <MenuItem class="javax.swing.JMenuItem" name="menuEditarSegundoItemDaLista">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Apagar Item"/>
+                <Property name="text" type="java.lang.String" value="Editar 2o item da Lista"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuEditarSegundoItemDaListaActionPerformed"/>
+              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="Desconectar">
+            <MenuItem class="javax.swing.JMenuItem" name="menuApagarSegundoItemDaLista">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Desconectar"/>
+                <Property name="text" type="java.lang.String" value="Apagar 2o Item da Lista"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuApagarSegundoItemDaListaActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -115,13 +116,7 @@
         <Component class="javax.swing.JList" name="minhaLista">
           <Properties>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-              <StringArray count="5">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
-                <StringItem index="4" value="Item 5"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
           <AuxValues>

@@ -11,7 +11,6 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -34,7 +33,10 @@ public class CrudManager {
     
     //Record the record according to the index/PK supplied
     public String getRecord(int id) {
-        return tabela.get(id);
+        if (0 <= id && id < tabela.size())
+            return tabela.get(id);
+        else
+            return null;
     }
     
     //Updates record according to index/PK supplied
@@ -45,12 +47,13 @@ public class CrudManager {
         }
     }
     
+    //Set line to blank. Prevents other records from changing index/PK.
     public void deleteRecord(int id) {
-        tabela.remove(id);
+        if (0 <= id && id < tabela.size()) {
+            tabela.set(id, "");
+            this.save();
+        }
     }
-    
-    
-    
     
     //Checks if database exists, loads data into memory.
     //If it doesn't exists returns empty database to write data.
@@ -69,18 +72,16 @@ public class CrudManager {
         }
     }
     
-    public void disconnect() {
-        
-    }
-    
+    //Persist changes to disk
     public void save() {
         try {
-            Files.write(path, tabela, Charset.defaultCharset().forName("UTF-8"), StandardOpenOption.WRITE);
+            Files.write(this.path, this.tabela, Charset.defaultCharset().forName("UTF-8"));
         } catch (IOException ex) {
             Logger.getLogger(CrudManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
+    //Return all data
     public List<String> getAllRecords() {
         return this.tabela;
     }
