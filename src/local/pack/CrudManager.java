@@ -46,7 +46,7 @@ public class CrudManager {
             throw new NotConnectedException();
         
         String[] fields = data.split(";");
-        if (fields.length != this.numberOfAttributes)
+        if (this.numberOfAttributes == 0 || fields.length != this.numberOfAttributes)
             throw new NotEnoughAttributesException();
         
         this.tabela.add(data);
@@ -72,7 +72,7 @@ public class CrudManager {
             throw new NotConnectedException();
         
         String[] fields = newValue.split(";");
-        if (fields.length != this.numberOfAttributes)
+        if (this.numberOfAttributes == 0 || fields.length != this.numberOfAttributes)
             throw new NotEnoughAttributesException();
         
         if (0 <= id && id < tabela.size()) {
@@ -102,6 +102,9 @@ public class CrudManager {
                 this.tabela = Files.readAllLines(this.path);
                 this.header = tabela.get(0);
                 tabela.remove(0);
+                
+                String[] attributes = this.header.split(";");
+                this.numberOfAttributes = attributes.length;
             } catch (IOException ex) {
                 Logger.getLogger(CrudManager.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -133,12 +133,13 @@ public class MyFrame extends javax.swing.JFrame {
 
     private void menuInserirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuInserirItemActionPerformed
         try {
-            crudManager.insertRecord("New record " + Instant.now());
+            crudManager.insertRecord("João;1.55;23;M;" + Instant.now());
+            menuLerListaActionPerformed(evt);
         } catch (CrudManager.NotConnectedException ex) {
+            JOptionPane.showMessageDialog(null, "Conecte antes de realizar essa operação");
         } catch (CrudManager.NotEnoughAttributesException ex) {
-            Logger.getLogger(MyFrame.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Número de atributos indefinidos, ou quantidade diferente da entidade");
         }
-        menuLerListaActionPerformed(evt);
     }//GEN-LAST:event_menuInserirItemActionPerformed
 
     private void menuLerListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLerListaActionPerformed
@@ -152,7 +153,7 @@ public class MyFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_menuLerListaActionPerformed
 
     private void menuConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConectarActionPerformed
-        crudManager.connect("file.txt");
+        crudManager.connect("new_file.txt");
     }//GEN-LAST:event_menuConectarActionPerformed
 
     private void menuLerSegundoItemDaListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLerSegundoItemDaListaActionPerformed
@@ -165,20 +166,22 @@ public class MyFrame extends javax.swing.JFrame {
 
     private void menuEditarSegundoItemDaListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEditarSegundoItemDaListaActionPerformed
         try {
-            crudManager.updateRecord("Novo valor", 1);
+            crudManager.updateRecord("Vinícius;1.74;32;M;" + Instant.now(), 1);
+            menuLerListaActionPerformed(evt);
         } catch (CrudManager.NotConnectedException ex) {
+            JOptionPane.showMessageDialog(null, "Conecte antes de realizar essa operação");
         } catch (CrudManager.NotEnoughAttributesException ex) {
-            Logger.getLogger(MyFrame.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Número de atributos indefinidos, ou quantidade diferente da entidade");
         }
-        menuLerListaActionPerformed(evt);
     }//GEN-LAST:event_menuEditarSegundoItemDaListaActionPerformed
 
     private void menuApagarSegundoItemDaListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuApagarSegundoItemDaListaActionPerformed
         try {
             crudManager.deleteRecord(1);
+            menuLerListaActionPerformed(evt);
         } catch (CrudManager.NotConnectedException ex) {
+            JOptionPane.showMessageDialog(null, "Conecte antes de realizar essa operação");
         }
-        menuLerListaActionPerformed(evt);
     }//GEN-LAST:event_menuApagarSegundoItemDaListaActionPerformed
 
     /**
