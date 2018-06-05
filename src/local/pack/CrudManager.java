@@ -28,20 +28,33 @@ public class CrudManager {
         }
     }
     
+    public class NotEnoughAttributesException extends Exception {
+        public NotEnoughAttributesException() {
+            super("Not all attributes were informed");
+        }
+    }
+    
     private List<String> tabela;
     Path path;
+    int numberOfAttributes;
+    String header;
     
-    //New records are always inserted at the end. Returns line number
-    public int insertRecord(String data) throws NotConnectedException {
+    //New records are always inserted at the end. Returns line number as PK
+    //Data needs to be added with exactly the number of attributes separated by ";"
+    public int insertRecord(String data) throws NotConnectedException, NotEnoughAttributesException {
         if (tabela == null)
             throw new NotConnectedException();
+        
+        String[] fields = data.split(";");
+        if (fields.length != this.numberOfAttributes)
+            throw new NotEnoughAttributesException();
         
         this.tabela.add(data);
         this.save();
         return tabela.size() - 1;
     }
     
-    //Record the record according to the index/PK supplied
+    //Returns the record according to the index/PK supplied
     public String getRecord(int id) throws NotConnectedException {
         if (tabela == null)
             throw new NotConnectedException();
@@ -53,9 +66,14 @@ public class CrudManager {
     }
     
     //Updates record according to index/PK supplied
-    public void updateRecord(String newValue, int id) throws NotConnectedException {
+    //Data needs to be added with exactly the number of attributes separated by ";"
+    public void updateRecord(String newValue, int id) throws NotConnectedException, NotEnoughAttributesException {
         if (tabela == null)
             throw new NotConnectedException();
+        
+        String[] fields = newValue.split(";");
+        if (fields.length != this.numberOfAttributes)
+            throw new NotEnoughAttributesException();
         
         if (0 <= id && id < tabela.size()) {
             tabela.set(id, newValue);
@@ -82,6 +100,8 @@ public class CrudManager {
         if (file.exists()) {
             try {
                 this.tabela = Files.readAllLines(this.path);
+                this.header = tabela.get(0);
+                tabela.remove(0);
             } catch (IOException ex) {
                 Logger.getLogger(CrudManager.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -91,10 +111,20 @@ public class CrudManager {
         }
     }
     
+    //Prevents any new operations from being made
+    public void disconnect()  {
+        this.tabela = null;
+        this.path = null;
+        this.numberOfAttributes = 0;
+        this.header = null;
+    }
+    
     //Persist changes to disk
     private void save() {
         try {
+            this.tabela.add(0, this.header);
             Files.write(this.path, this.tabela, Charset.defaultCharset().forName("UTF-8"));
+            this.tabela.remove(0);
         } catch (IOException ex) {
             Logger.getLogger(CrudManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -106,5 +136,15 @@ public class CrudManager {
             throw new NotConnectedException();
         
         return this.tabela;
+    }
+    
+    //Create header to know how many attributes the entity stores
+    public void createEntityHeader(int numberOfAttributes) {
+        this.numberOfAttributes = numberOfAttributes;
+        String headerLine = "";
+        for(int i = 0; i < numberOfAttributes; i++)
+            headerLine += "Atribute" + i + ";";
+        headerLine = headerLine.substring(0, headerLine.length() - 1);
+        this.header = headerLine;
     }
 }

@@ -135,6 +135,8 @@ public class MyFrame extends javax.swing.JFrame {
         try {
             crudManager.insertRecord("New record " + Instant.now());
         } catch (CrudManager.NotConnectedException ex) {
+        } catch (CrudManager.NotEnoughAttributesException ex) {
+            Logger.getLogger(MyFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         menuLerListaActionPerformed(evt);
     }//GEN-LAST:event_menuInserirItemActionPerformed
@@ -165,6 +167,8 @@ public class MyFrame extends javax.swing.JFrame {
         try {
             crudManager.updateRecord("Novo valor", 1);
         } catch (CrudManager.NotConnectedException ex) {
+        } catch (CrudManager.NotEnoughAttributesException ex) {
+            Logger.getLogger(MyFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         menuLerListaActionPerformed(evt);
     }//GEN-LAST:event_menuEditarSegundoItemDaListaActionPerformed
