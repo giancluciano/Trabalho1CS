@@ -132,8 +132,9 @@ public class MyFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuInserirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuInserirItemActionPerformed
+        Pessoa joao = new Pessoa("111", "joao", 3);
         try {
-            crudManager.insertRecord("João;1.55;23;M;" + Instant.now());
+            crudManager.insertRecord(joao);
             menuLerListaActionPerformed(evt);
         } catch (CrudManager.NotConnectedException ex) {
             JOptionPane.showMessageDialog(null, "Conecte antes de realizar essa operação");
@@ -144,16 +145,22 @@ public class MyFrame extends javax.swing.JFrame {
 
     private void menuLerListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLerListaActionPerformed
         List<String> records;
-        try {
-            records = crudManager.getAllRecords();
-            minhaLista.setListData(records.toArray(new String[0]));
-        } catch (CrudManager.NotConnectedException ex) {
-            JOptionPane.showMessageDialog(null, "Conecte antes de realizar essa operação");
-        }
+//        try {
+//            records = crudManager.getAllRecords();
+//            minhaLista.setListData(records.toArray(new String[0]));
+//        } catch (CrudManager.NotConnectedException ex) {
+//            JOptionPane.showMessageDialog(null, "Conecte antes de realizar essa operação");
+//        }
     }//GEN-LAST:event_menuLerListaActionPerformed
 
     private void menuConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConectarActionPerformed
-        crudManager.connect("new_file.txt");
+        try {
+            crudManager.connect("new_file.txt");
+        } catch (IOException ex) {
+            Logger.getLogger(MyFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MyFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_menuConectarActionPerformed
 
     private void menuLerSegundoItemDaListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLerSegundoItemDaListaActionPerformed
