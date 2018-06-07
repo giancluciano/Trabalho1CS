@@ -68,21 +68,6 @@ public class CrudManager {
         else
             return null;
     }
-    //Updates record according to index/PK supplied
-    //Data needs to be added with exactly the number of attributes separated by ";"
-    public void updateRecord(String newValue, int id) throws NotConnectedException, NotEnoughAttributesException {
-        if (tabela == null)
-            throw new NotConnectedException();
-        
-        String[] fields = newValue.split(";");
-        if (this.numberOfAttributes == 0 || fields.length != this.numberOfAttributes)
-            throw new NotEnoughAttributesException();
-        
-        if (0 <= id && id < tabela.size()) {
-            tabela.set(id, newValue);
-            this.save();
-        }
-    }
     
     //Updates record according to index/PK supplied
     //Data needs to be added with exactly the number of attributes separated by ";"
