@@ -164,7 +164,8 @@ public class MyFrame extends javax.swing.JFrame {
 
     private void menuLerSegundoItemDaListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLerSegundoItemDaListaActionPerformed
         try {
-            JOptionPane.showMessageDialog(null, crudManager.getRecord(1));
+            Pessoa pessoa = (Pessoa)crudManager.getRecord(0);
+            JOptionPane.showMessageDialog(null, pessoa);
         } catch (CrudManager.NotConnectedException ex) {
             JOptionPane.showMessageDialog(null, "Conecte antes de realizar essa operação");
         }
@@ -172,7 +173,8 @@ public class MyFrame extends javax.swing.JFrame {
 
     private void menuEditarSegundoItemDaListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEditarSegundoItemDaListaActionPerformed
         try {
-            crudManager.updateRecord("Vinícius;1.74;32;M;" + Instant.now(), 1);
+            Pessoa joao = new Pessoa("111", "joao", 4);
+            crudManager.updateRecord(joao, 0);
             menuLerListaActionPerformed(evt);
         } catch (CrudManager.NotConnectedException ex) {
             JOptionPane.showMessageDialog(null, "Conecte antes de realizar essa operação");
@@ -183,7 +185,7 @@ public class MyFrame extends javax.swing.JFrame {
 
     private void menuApagarSegundoItemDaListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuApagarSegundoItemDaListaActionPerformed
         try {
-            crudManager.deleteRecord(1);
+            crudManager.deleteRecord(0);
             menuLerListaActionPerformed(evt);
         } catch (CrudManager.NotConnectedException ex) {
             JOptionPane.showMessageDialog(null, "Conecte antes de realizar essa operação");
