@@ -17,12 +17,12 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuConectarActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuLerLista">
+            <MenuItem class="javax.swing.JMenuItem" name="menuMostrarTodosRegistros">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Ler Lista"/>
+                <Property name="text" type="java.lang.String" value="Mostrar todos os registros"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuLerListaActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuMostrarTodosRegistrosActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
@@ -36,12 +36,15 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuInserRegistroActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuLerSegundoItemDaLista">
+            <MenuItem class="javax.swing.JMenuItem" name="menuLerRegistro">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Ler 2o Item da Lista"/>
+                <Property name="text" type="java.lang.String" value="Ler registro"/>
               </Properties>
+              <AccessibilityProperties>
+                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Ler Registro"/>
+              </AccessibilityProperties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuLerSegundoItemDaListaActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuLerRegistroActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuEditarRegistro">
@@ -52,12 +55,15 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuEditarRegistroActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuApagarSegundoItemDaLista">
+            <MenuItem class="javax.swing.JMenuItem" name="menuApagarRegistro">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Apagar 2o Item da Lista"/>
+                <Property name="text" type="java.lang.String" value="Apagar registro"/>
               </Properties>
+              <AccessibilityProperties>
+                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Apagar Registro"/>
+              </AccessibilityProperties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuApagarSegundoItemDaListaActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuApagarRegistroActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

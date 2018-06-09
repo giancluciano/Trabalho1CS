@@ -45,7 +45,4 @@ public class Pessoa implements Serializable {
     public void setIdade(int idade) {
         this.idade = idade;
     }
-    
-    
-    
 }

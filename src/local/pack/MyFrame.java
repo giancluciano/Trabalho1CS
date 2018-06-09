@@ -51,12 +51,12 @@ public class MyFrame extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         menuConectar = new javax.swing.JMenuItem();
-        menuLerLista = new javax.swing.JMenuItem();
+        menuMostrarTodosRegistros = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         menuInserRegistro = new javax.swing.JMenuItem();
-        menuLerSegundoItemDaLista = new javax.swing.JMenuItem();
+        menuLerRegistro = new javax.swing.JMenuItem();
         menuEditarRegistro = new javax.swing.JMenuItem();
-        menuApagarSegundoItemDaLista = new javax.swing.JMenuItem();
+        menuApagarRegistro = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -87,13 +87,13 @@ public class MyFrame extends javax.swing.JFrame {
         });
         jMenu1.add(menuConectar);
 
-        menuLerLista.setText("Ler Lista");
-        menuLerLista.addActionListener(new java.awt.event.ActionListener() {
+        menuMostrarTodosRegistros.setText("Mostrar todos os registros");
+        menuMostrarTodosRegistros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuLerListaActionPerformed(evt);
+                menuMostrarTodosRegistrosActionPerformed(evt);
             }
         });
-        jMenu1.add(menuLerLista);
+        jMenu1.add(menuMostrarTodosRegistros);
         jMenu1.add(jSeparator1);
 
         menuInserRegistro.setText("Inserir registro");
@@ -105,13 +105,14 @@ public class MyFrame extends javax.swing.JFrame {
         });
         jMenu1.add(menuInserRegistro);
 
-        menuLerSegundoItemDaLista.setText("Ler 2o Item da Lista");
-        menuLerSegundoItemDaLista.addActionListener(new java.awt.event.ActionListener() {
+        menuLerRegistro.setText("Ler registro");
+        menuLerRegistro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuLerSegundoItemDaListaActionPerformed(evt);
+                menuLerRegistroActionPerformed(evt);
             }
         });
-        jMenu1.add(menuLerSegundoItemDaLista);
+        jMenu1.add(menuLerRegistro);
+        menuLerRegistro.getAccessibleContext().setAccessibleName("Ler Registro");
 
         menuEditarRegistro.setText("Editar Registro");
         menuEditarRegistro.addActionListener(new java.awt.event.ActionListener() {
@@ -121,13 +122,14 @@ public class MyFrame extends javax.swing.JFrame {
         });
         jMenu1.add(menuEditarRegistro);
 
-        menuApagarSegundoItemDaLista.setText("Apagar 2o Item da Lista");
-        menuApagarSegundoItemDaLista.addActionListener(new java.awt.event.ActionListener() {
+        menuApagarRegistro.setText("Apagar registro");
+        menuApagarRegistro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuApagarSegundoItemDaListaActionPerformed(evt);
+                menuApagarRegistroActionPerformed(evt);
             }
         });
-        jMenu1.add(menuApagarSegundoItemDaLista);
+        jMenu1.add(menuApagarRegistro);
+        menuApagarRegistro.getAccessibleContext().setAccessibleName("Apagar Registro");
 
         jMenuBar1.add(jMenu1);
 
@@ -181,16 +183,18 @@ public class MyFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuInserRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuInserRegistroActionPerformed
-        Pessoa pessoa = new Pessoa(jTextFieldCPF.getText(), jTextFieldNome.getText(), Integer.parseInt(jTextFieldIdade.getText()));
         try {
+            Pessoa pessoa = new Pessoa(jTextFieldCPF.getText(), jTextFieldNome.getText(), Integer.parseInt(jTextFieldIdade.getText()));
             crudManager.insertRecord(pessoa);
-            menuLerListaActionPerformed(evt);
+            menuMostrarTodosRegistrosActionPerformed(evt);
         } catch (CrudManager.NotConnectedException ex) {
             JOptionPane.showMessageDialog(null, "Conecte antes de realizar essa operação");
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Idade inválida");
         }
     }//GEN-LAST:event_menuInserRegistroActionPerformed
 
-    private void menuLerListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLerListaActionPerformed
+    private void menuMostrarTodosRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMostrarTodosRegistrosActionPerformed
         List<Object> records;
         try {
             records = crudManager.getAllRecords();
@@ -207,7 +211,7 @@ public class MyFrame extends javax.swing.JFrame {
         } catch (CrudManager.NotConnectedException ex) {
             JOptionPane.showMessageDialog(null, "Conecte antes de realizar essa operação");
         }
-    }//GEN-LAST:event_menuLerListaActionPerformed
+    }//GEN-LAST:event_menuMostrarTodosRegistrosActionPerformed
 
     private void menuConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConectarActionPerformed
         try {
@@ -219,19 +223,42 @@ public class MyFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_menuConectarActionPerformed
 
-    private void menuLerSegundoItemDaListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLerSegundoItemDaListaActionPerformed
+    private void menuLerRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLerRegistroActionPerformed
         try {
-            Pessoa pessoa = (Pessoa)crudManager.getRecord(0);
-            JOptionPane.showMessageDialog(null, pessoa);
+            int registroSelecionado = minhaLista.getSelectedIndex();
+            if (registroSelecionado < 0) {
+                JOptionPane.showMessageDialog(null, "Selecione uma linha");
+                return;
+            }
+            
+            Pessoa pessoa = (Pessoa)crudManager.getRecord(registroSelecionado);
+            if (pessoa == null) {
+                JOptionPane.showMessageDialog(null, "Esse registro foi apagado e não mais ser lido/editado");
+                return;
+            }
+            
+            jTextFieldCPF.setText(pessoa.getCpf());
+            jTextFieldNome.setText(pessoa.getNome());
+            jTextFieldIdade.setText("" + pessoa.getIdade());
         } catch (CrudManager.NotConnectedException ex) {
             JOptionPane.showMessageDialog(null, "Conecte antes de realizar essa operação");
         }
-    }//GEN-LAST:event_menuLerSegundoItemDaListaActionPerformed
+    }//GEN-LAST:event_menuLerRegistroActionPerformed
 
     private void menuEditarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEditarRegistroActionPerformed
         try {
             int registroSelecionado = minhaLista.getSelectedIndex();
+            if (registroSelecionado < 0) {
+                JOptionPane.showMessageDialog(null, "Selecione uma linha");
+                return;
+            }
+            
             Pessoa pessoa = (Pessoa)crudManager.getRecord(registroSelecionado);
+            if (pessoa == null) {
+                JOptionPane.showMessageDialog(null, "Esse registro foi apagado e não mais ser lido/editado");
+                return;
+            }
+            
             jTextFieldCPF.setText(pessoa.getCpf());
             jTextFieldNome.setText(pessoa.getNome());
             jTextFieldIdade.setText("" + pessoa.getIdade());
@@ -241,20 +268,20 @@ public class MyFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_menuEditarRegistroActionPerformed
 
-    private void menuApagarSegundoItemDaListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuApagarSegundoItemDaListaActionPerformed
+    private void menuApagarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuApagarRegistroActionPerformed
         try {
-            crudManager.deleteRecord(0);
-            menuLerListaActionPerformed(evt);
+            crudManager.deleteRecord(minhaLista.getSelectedIndex());
+            menuMostrarTodosRegistrosActionPerformed(evt);
         } catch (CrudManager.NotConnectedException ex) {
             JOptionPane.showMessageDialog(null, "Conecte antes de realizar essa operação");
         }
-    }//GEN-LAST:event_menuApagarSegundoItemDaListaActionPerformed
+    }//GEN-LAST:event_menuApagarRegistroActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         try {
             Pessoa pessoa = new Pessoa(jTextFieldCPF.getText(), jTextFieldNome.getText(), Integer.parseInt(jTextFieldIdade.getText()));
             crudManager.updateRecord(pessoa, minhaLista.getSelectedIndex());
-            menuLerListaActionPerformed(evt);
+            menuMostrarTodosRegistrosActionPerformed(evt);
         } catch (CrudManager.NotConnectedException ex) {
             JOptionPane.showMessageDialog(null, "Conecte antes de realizar essa operação");
         }
@@ -309,12 +336,12 @@ public class MyFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldCPF;
     private javax.swing.JTextField jTextFieldIdade;
     private javax.swing.JTextField jTextFieldNome;
-    private javax.swing.JMenuItem menuApagarSegundoItemDaLista;
+    private javax.swing.JMenuItem menuApagarRegistro;
     private javax.swing.JMenuItem menuConectar;
     private javax.swing.JMenuItem menuEditarRegistro;
     private javax.swing.JMenuItem menuInserRegistro;
-    private javax.swing.JMenuItem menuLerLista;
-    private javax.swing.JMenuItem menuLerSegundoItemDaLista;
+    private javax.swing.JMenuItem menuLerRegistro;
+    private javax.swing.JMenuItem menuMostrarTodosRegistros;
     private javax.swing.JList<String> minhaLista;
     // End of variables declaration//GEN-END:variables
 }
