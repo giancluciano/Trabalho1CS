@@ -12,7 +12,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -23,6 +22,8 @@ import java.util.logging.Logger;
  * @author vinicius
  */
 public class CrudManager {
+    
+    String databaseFile;
     
     public class NotConnectedException extends Exception {
         public NotConnectedException() {
@@ -80,7 +81,8 @@ public class CrudManager {
     //Checks if database exists, loads data into memory.
     //If it doesn't exists returns empty database to write data.
     public void connect(String fileName) throws FileNotFoundException, IOException, ClassNotFoundException {
-        File arquivo = new File("object.ser");
+        this.databaseFile = fileName;
+        File arquivo = new File(this.databaseFile);
         if(!arquivo.exists()) {
             arquivo.createNewFile();
             tabelaGenerica = new ArrayList<>();
@@ -102,7 +104,7 @@ public class CrudManager {
     //Persist changes to disk
     private void save() {
         try {
-            FileOutputStream fop=new FileOutputStream("object.ser");
+            FileOutputStream fop=new FileOutputStream(this.databaseFile);
             ObjectOutputStream oos=new ObjectOutputStream(fop);
             oos.writeObject(tabelaGenerica);
             oos.close();

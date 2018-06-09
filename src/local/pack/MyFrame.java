@@ -6,8 +6,6 @@
 package local.pack;
 
 import java.io.IOException;
-import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +21,7 @@ public class MyFrame extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     
-    private CrudManager crudManager = new CrudManager();
+    private final CrudManager crudManager = new CrudManager();
     
     public MyFrame() {
         initComponents();
@@ -215,10 +213,8 @@ public class MyFrame extends javax.swing.JFrame {
 
     private void menuConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConectarActionPerformed
         try {
-            crudManager.connect("new_file.txt");
-        } catch (IOException ex) {
-            Logger.getLogger(MyFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+            crudManager.connect("objectsDatabase.ser");
+        } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(MyFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_menuConectarActionPerformed
