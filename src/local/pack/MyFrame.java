@@ -203,7 +203,7 @@ public class MyFrame extends javax.swing.JFrame {
                 if (pessoaAux == null)
                     data[i] = "---Registro vazio---";
                 else
-                    data[i] = pessoaAux.getCpf()+ "---" + pessoaAux.getNome() + "---" + pessoaAux.getIdade();
+                    data[i] = pessoaAux.getCpf()+ " --- " + pessoaAux.getNome() + " --- " + pessoaAux.getIdade();
             }
             minhaLista.setListData(data);
         } catch (CrudManager.NotConnectedException ex) {

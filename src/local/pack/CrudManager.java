@@ -27,14 +27,13 @@ public class CrudManager {
     
     public class NotConnectedException extends Exception {
         public NotConnectedException() {
-            super("Select a file before performing this operation");
+            super("Select a file to save before performing this operation");
         }
     }
     
     private ArrayList<Object> tabelaGenerica;
     
     //New records are always inserted at the end. Returns line number as PK
-    //Data needs to be added with exactly the number of attributes separated by ";"
     public int insertRecord(Object obj) throws NotConnectedException {
         if (tabelaGenerica == null)
             throw new NotConnectedException();
@@ -44,8 +43,8 @@ public class CrudManager {
         return tabelaGenerica.size() - 1;
     }
     
-    
-    //Returns the record according to the index/PK supplied
+    //Returns the record according to the index/PK supplied, or null in case
+    //it does not exists
     public Object getRecord(int id) throws NotConnectedException {
         if (tabelaGenerica == null)
             throw new NotConnectedException();
@@ -57,7 +56,6 @@ public class CrudManager {
     }
     
     //Updates record according to index/PK supplied
-    //Data needs to be added with exactly the number of attributes separated by ";"
     public void updateRecord(Object newObj, int id) throws NotConnectedException {
         if (tabelaGenerica == null)
             throw new NotConnectedException();
@@ -68,7 +66,7 @@ public class CrudManager {
         }
     }
     
-    //Set line to blank. Prevents other records from changing index/PK.
+    //Set Id to null to mark as deleted. Prevents other records from changing index/PK.
     public void deleteRecord(int id) throws NotConnectedException {
         if (tabelaGenerica == null)
             throw new NotConnectedException();
@@ -78,6 +76,7 @@ public class CrudManager {
             this.save();
         }
     }
+    
     //Checks if database exists, loads data into memory.
     //If it doesn't exists returns empty database to write data.
     public void connect(String fileName) throws FileNotFoundException, IOException, ClassNotFoundException {
@@ -114,7 +113,7 @@ public class CrudManager {
         }
     }
     
-    //Return all data
+    //Return all data to application
     public List<Object> getAllRecords() throws NotConnectedException {
         if (tabelaGenerica == null)
             throw new NotConnectedException();
