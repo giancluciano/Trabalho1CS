@@ -27,6 +27,7 @@ public class MyFrame extends javax.swing.JFrame {
     
     public MyFrame() {
         initComponents();
+        jButtonSalvar.setVisible(false);
     }
 
     /**
@@ -46,14 +47,15 @@ public class MyFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jTextFieldIdade = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        jButtonSalvar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         menuConectar = new javax.swing.JMenuItem();
         menuLerLista = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        menuInserirItem = new javax.swing.JMenuItem();
+        menuInserRegistro = new javax.swing.JMenuItem();
         menuLerSegundoItemDaLista = new javax.swing.JMenuItem();
-        menuEditarSegundoItemDaLista = new javax.swing.JMenuItem();
+        menuEditarRegistro = new javax.swing.JMenuItem();
         menuApagarSegundoItemDaLista = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -62,11 +64,18 @@ public class MyFrame extends javax.swing.JFrame {
 
         jLabel1.setText("CPF");
 
-        jTextFieldNome.setText("___________");
+        jTextFieldNome.setText("______________");
 
         jLabel2.setText("Nome");
 
         jLabel3.setText("Idade");
+
+        jButtonSalvar.setText("Salvar");
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalvarActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("Ações");
 
@@ -87,14 +96,14 @@ public class MyFrame extends javax.swing.JFrame {
         jMenu1.add(menuLerLista);
         jMenu1.add(jSeparator1);
 
-        menuInserirItem.setText("Inserir item");
-        menuInserirItem.setActionCommand("Criar item");
-        menuInserirItem.addActionListener(new java.awt.event.ActionListener() {
+        menuInserRegistro.setText("Inserir registro");
+        menuInserRegistro.setActionCommand("Criar item");
+        menuInserRegistro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuInserirItemActionPerformed(evt);
+                menuInserRegistroActionPerformed(evt);
             }
         });
-        jMenu1.add(menuInserirItem);
+        jMenu1.add(menuInserRegistro);
 
         menuLerSegundoItemDaLista.setText("Ler 2o Item da Lista");
         menuLerSegundoItemDaLista.addActionListener(new java.awt.event.ActionListener() {
@@ -104,13 +113,13 @@ public class MyFrame extends javax.swing.JFrame {
         });
         jMenu1.add(menuLerSegundoItemDaLista);
 
-        menuEditarSegundoItemDaLista.setText("Editar 2o item da Lista");
-        menuEditarSegundoItemDaLista.addActionListener(new java.awt.event.ActionListener() {
+        menuEditarRegistro.setText("Editar Registro");
+        menuEditarRegistro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuEditarSegundoItemDaListaActionPerformed(evt);
+                menuEditarRegistroActionPerformed(evt);
             }
         });
-        jMenu1.add(menuEditarSegundoItemDaLista);
+        jMenu1.add(menuEditarRegistro);
 
         menuApagarSegundoItemDaLista.setText("Apagar 2o Item da Lista");
         menuApagarSegundoItemDaLista.addActionListener(new java.awt.event.ActionListener() {
@@ -130,15 +139,19 @@ public class MyFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextFieldIdade)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextFieldNome)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextFieldCPF))
+                    .addComponent(jTextFieldNome, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                    .addComponent(jTextFieldCPF)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jButtonSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -159,22 +172,23 @@ public class MyFrame extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldIdade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 37, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                        .addComponent(jButtonSalvar)))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void menuInserirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuInserirItemActionPerformed
-        Pessoa joao = new Pessoa("111", "joao", 3);
+    private void menuInserRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuInserRegistroActionPerformed
+        Pessoa pessoa = new Pessoa(jTextFieldCPF.getText(), jTextFieldNome.getText(), Integer.parseInt(jTextFieldIdade.getText()));
         try {
-            crudManager.insertRecord(joao);
+            crudManager.insertRecord(pessoa);
             menuLerListaActionPerformed(evt);
         } catch (CrudManager.NotConnectedException ex) {
             JOptionPane.showMessageDialog(null, "Conecte antes de realizar essa operação");
         }
-    }//GEN-LAST:event_menuInserirItemActionPerformed
+    }//GEN-LAST:event_menuInserRegistroActionPerformed
 
     private void menuLerListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLerListaActionPerformed
         List<Object> records;
@@ -187,7 +201,7 @@ public class MyFrame extends javax.swing.JFrame {
                 if (pessoaAux == null)
                     data[i] = "---Registro vazio---";
                 else
-                    data[i] = pessoaAux.getNome();
+                    data[i] = pessoaAux.getCpf()+ "---" + pessoaAux.getNome() + "---" + pessoaAux.getIdade();
             }
             minhaLista.setListData(data);
         } catch (CrudManager.NotConnectedException ex) {
@@ -214,15 +228,18 @@ public class MyFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_menuLerSegundoItemDaListaActionPerformed
 
-    private void menuEditarSegundoItemDaListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEditarSegundoItemDaListaActionPerformed
+    private void menuEditarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEditarRegistroActionPerformed
         try {
-            Pessoa joao = new Pessoa("111", "joao", 4);
-            crudManager.updateRecord(joao, 0);
-            menuLerListaActionPerformed(evt);
+            int registroSelecionado = minhaLista.getSelectedIndex();
+            Pessoa pessoa = (Pessoa)crudManager.getRecord(registroSelecionado);
+            jTextFieldCPF.setText(pessoa.getCpf());
+            jTextFieldNome.setText(pessoa.getNome());
+            jTextFieldIdade.setText("" + pessoa.getIdade());
+            jButtonSalvar.setVisible(true);
         } catch (CrudManager.NotConnectedException ex) {
             JOptionPane.showMessageDialog(null, "Conecte antes de realizar essa operação");
         }
-    }//GEN-LAST:event_menuEditarSegundoItemDaListaActionPerformed
+    }//GEN-LAST:event_menuEditarRegistroActionPerformed
 
     private void menuApagarSegundoItemDaListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuApagarSegundoItemDaListaActionPerformed
         try {
@@ -232,6 +249,17 @@ public class MyFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Conecte antes de realizar essa operação");
         }
     }//GEN-LAST:event_menuApagarSegundoItemDaListaActionPerformed
+
+    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+        try {
+            Pessoa pessoa = new Pessoa(jTextFieldCPF.getText(), jTextFieldNome.getText(), Integer.parseInt(jTextFieldIdade.getText()));
+            crudManager.updateRecord(pessoa, minhaLista.getSelectedIndex());
+            menuLerListaActionPerformed(evt);
+        } catch (CrudManager.NotConnectedException ex) {
+            JOptionPane.showMessageDialog(null, "Conecte antes de realizar essa operação");
+        }
+        jButtonSalvar.setVisible(false);
+    }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -270,6 +298,7 @@ public class MyFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -282,8 +311,8 @@ public class MyFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldNome;
     private javax.swing.JMenuItem menuApagarSegundoItemDaLista;
     private javax.swing.JMenuItem menuConectar;
-    private javax.swing.JMenuItem menuEditarSegundoItemDaLista;
-    private javax.swing.JMenuItem menuInserirItem;
+    private javax.swing.JMenuItem menuEditarRegistro;
+    private javax.swing.JMenuItem menuInserRegistro;
     private javax.swing.JMenuItem menuLerLista;
     private javax.swing.JMenuItem menuLerSegundoItemDaLista;
     private javax.swing.JList<String> minhaLista;
