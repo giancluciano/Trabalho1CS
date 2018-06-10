@@ -212,11 +212,7 @@ public class MyFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_menuMostrarTodosRegistrosActionPerformed
 
     private void menuConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConectarActionPerformed
-        try {
-            crudManager.connect("objectsDatabase.ser");
-        } catch (IOException | ClassNotFoundException ex) {
-            Logger.getLogger(MyFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        crudManager.connect("objectsDatabase.ser");
     }//GEN-LAST:event_menuConectarActionPerformed
 
     private void menuLerRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLerRegistroActionPerformed

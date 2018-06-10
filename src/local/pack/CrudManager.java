@@ -7,7 +7,6 @@ package local.pack;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -79,19 +78,23 @@ public class CrudManager {
     
     //Checks if database exists, loads data into memory.
     //If it doesn't exists returns empty database to write data.
-    public void connect(String fileName) throws FileNotFoundException, IOException, ClassNotFoundException {
-        this.databaseFile = fileName;
-        File arquivo = new File(this.databaseFile);
-        if(!arquivo.exists()) {
-            arquivo.createNewFile();
-            tabelaGenerica = new ArrayList<>();
-        }
-        else{
-            FileInputStream fis=new FileInputStream(arquivo);
-            ObjectInputStream ois=new ObjectInputStream(fis);
-            tabelaGenerica = (ArrayList<Object>)ois.readObject();
-            ois.close();
-            fis.close();
+    public void connect(String fileName) {
+        try {
+            this.databaseFile = fileName;
+            File arquivo = new File(this.databaseFile);
+            if(!arquivo.exists()) {
+                arquivo.createNewFile();
+                tabelaGenerica = new ArrayList<>();
+            }
+            else{
+                FileInputStream fis=new FileInputStream(arquivo);
+                ObjectInputStream ois=new ObjectInputStream(fis);
+                tabelaGenerica = (ArrayList<Object>)ois.readObject();
+                ois.close();
+                fis.close();
+            }
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(CrudManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
